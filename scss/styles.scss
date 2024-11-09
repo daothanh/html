@@ -1,0 +1,21 @@
+// Import file custom Bootstrap
+@import 'custom-bootstrap';
+
+$primary-color: #889944;
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header, footer {
+  background-color: $primary-color;
+  color: #fff;
+  text-align: center;
+  padding: 1em;
+}
+
+.container {
+  padding: 2em;
+}

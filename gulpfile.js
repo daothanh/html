@@ -8,7 +8,10 @@ const babel = require('gulp-babel');
 const browserSync = require('browser-sync').create();
 const fileInclude = require('gulp-file-include');
 const del = require('del');
-const sass = require('gulp-sass')(require('sass'));
+const sass = require('gulp-sass')(require('sass-embedded'));
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const rtlcss = require('rtlcss');
 
 // Xóa thư mục build cũ
 gulp.task('clean', () => {
@@ -25,8 +28,20 @@ gulp.task('vendor', () => {
 // Biên dịch SCSS sang CSS, nén và gộp
 gulp.task('styles', () => {
     return gulp.src('scss/**/*.scss')
-        .pipe(sass({ silenceDeprecations: ['legacy-js-api']}).on('error', sass.logError))
+        .pipe(sass({silenceDeprecations: ['legacy-js-api']}).on('error', sass.logError))
+        .pipe(postcss([autoprefixer()]))  // Thêm tiền tố tự động
         .pipe(concat('styles.min.css'))
+        .pipe(cleanCSS())
+        .pipe(gulp.dest('build/css'))
+        .pipe(browserSync.stream());
+});
+
+// Tạo file RTL từ CSS đã biên dịch
+gulp.task('styles-rtl', () => {
+    return gulp.src('scss/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss([autoprefixer(), rtlcss()]))  // Áp dụng Autoprefixer và RTLCSS
+        .pipe(concat('styles-rtl.min.css'))
         .pipe(cleanCSS())
         .pipe(gulp.dest('build/css'))
         .pipe(browserSync.stream());
@@ -35,7 +50,7 @@ gulp.task('styles', () => {
 // Chuyển mã JavaScript sang ES5, nén và gộp
 gulp.task('scripts', () => {
     return gulp.src('js/**/*.js')
-        .pipe(babel({ presets: ['@babel/preset-env'] }))
+        .pipe(babel({presets: ['@babel/preset-env']}))
         .pipe(concat('scripts.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('build/js'))
@@ -49,7 +64,7 @@ gulp.task('html', () => {
             prefix: '@@',
             basepath: '@file'
         }))
-        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('build'))
         .pipe(browserSync.stream());
 });
@@ -76,5 +91,5 @@ gulp.task('serve', () => {
 });
 
 // Tác vụ build toàn bộ và khởi động hot reload
-gulp.task('build', gulp.series('clean', gulp.parallel('styles', 'scripts', 'html', 'images')));
+gulp.task('build', gulp.series('clean', gulp.parallel('styles', 'styles-rtl', 'scripts', 'html', 'images')));
 gulp.task('default', gulp.series('build', 'serve'));

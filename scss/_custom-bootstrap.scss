@@ -5,4 +5,4 @@ $font-family-base: 'Arial', sans-serif;
 $body-bg: #f8f9fa;
 
 // Import các file của Bootstrap
-@import '../node_modules/bootstrap/scss/bootstrap';
+@use '../node_modules/bootstrap/scss/bootstrap';

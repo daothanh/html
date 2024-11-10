@@ -10,6 +10,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "autoprefixer": "^10.4.20",
     "browser-sync": "^2.0.0",
     "del": "^6.0.0",
     "gulp": "^4.0.0",
@@ -19,9 +20,13 @@
     "gulp-file-include": "^2.0.0",
     "gulp-htmlmin": "^5.0.0",
     "gulp-imagemin": "^7.0.0",
+    "gulp-postcss": "^10.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.0",
-    "sass": "^1.80.6"
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
+    "rtlcss": "^4.3.0",
+    "sass-embedded": "^1.80.6"
   },
   "dependencies": {
     "bootstrap": "^5.3.3"

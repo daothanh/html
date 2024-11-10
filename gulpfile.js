@@ -14,6 +14,13 @@ const sass = require('gulp-sass')(require('sass'));
 gulp.task('clean', () => {
     return del(['build']);
 });
+// Task copy vendor libraries từ node_modules
+gulp.task('vendor', () => {
+    return gulp.src([
+        'vendor/**/*'
+    ])
+        .pipe(gulp.dest('build/vendor'));
+});
 
 // Biên dịch SCSS sang CSS, nén và gộp
 gulp.task('styles', () => {

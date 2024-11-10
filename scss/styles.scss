@@ -1,7 +1,5 @@
 // Import file custom Bootstrap
-@use 'custom-bootstrap';
-
-$primary-color: #889944;
+@import 'custom-bootstrap';
 
 body {
   font-family: Arial, sans-serif;
@@ -10,7 +8,7 @@ body {
 }
 
 header, footer {
-  background-color: $primary-color;
+  background-color: $primary;
   color: #fff;
   text-align: center;
   padding: 1em;

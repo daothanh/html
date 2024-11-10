@@ -1,8 +1,4 @@
-// Đặt biến Bootstrap theo ý muốn
-$primary: #ff5722;
-$secondary: #009688;
-$font-family-base: 'Arial', sans-serif;
-$body-bg: #f8f9fa;
+@import "variable";
 
 // Import các file của Bootstrap
-@use '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/bootstrap/scss/bootstrap';
